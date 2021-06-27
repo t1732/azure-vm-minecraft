@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+   db:
+     image: itzg/minecraft-server:java16
+     volumes:
+       - ./minecraft:/data:cached
+     restart: always
+     environment:
+       TZ: "Asia/Tokyo"
+       EULA: "TRUE"
+       ENABLE_RCON: "true"
+       RCON_PASSWORD: "spigot"
+       RCON_PORT: "25575"
+       VERSION: "1.17"
+       TYPE: "SPIGOT"
+       SPIGOT_DOWNLOAD_URL: "https://cdn.getbukkit.org/spigot/spigot-1.17.jar"
+       SERVER_NAME: "spigot server"
+       DIFFICULTY: "normal"
+       MAX_PLAYERS: "3"
+       MAX_WORLD_SIZE: "100000"
+       ALLOW_NETHER: "true"
+       ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
+       ENABLE_COMMAND_BLOCK: "true"
+       FORCEGAME_MODE: "false"
+       GENERATE_STRUCTURES: "true"
+       HARDCORE: "false"
+       MAX_BUILD_HEIGHT: "256"
+       MAX_TICK_TIME: "60000"
+       SPAWN_ANIMALS: "true"
+       SPAWN_MONSTERS: "true"
+       SPAWN_NPCS: "true"
+       SPAWN_PROTECTION: "0"
+       VIEW_DISTANCE: "10"
+       GAME_MODE: "survival"
+       MOTD: "wellcome enjoy plaing."
+       PVP: "false"
+       LEVEL_TYPE: "LARGEBIOMES"
+       ONLINE_MODE: "true"
+       MEMORY: "2048M"
+     ports:
+       - "25565:25565"

@@ -1,0 +1,42 @@
+---
+- name: minecraft server
+  hosts: minecraft
+  remote_user: minecraft
+  become: true
+
+  roles:
+    - docker
+
+  tasks:
+    - name: Add minecraft group
+      group:
+        name: minecraft
+        state: present
+
+    - name: Add minecraft user
+      user:
+        name: minecraft
+        shell: /bin/bash
+        group: minecraft
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: /home/minecraft/docker-compose.yml
+        owner: minecraft
+        group: minecraft
+        mode: 0600
+
+    - name: Extract minecraft.tar.gz
+      unarchive:
+        src: minecraft.tar.gz
+        dest: ./
+        creates: ./minecraft
+        owner: minecraft
+        group: minecraft
+
+    - name: docker compose start
+      shell: |
+        /usr/local/bin/docker-compose up -d
+      args:
+        executable: /bin/bash
